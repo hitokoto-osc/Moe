@@ -1,0 +1,40 @@
+{
+  "name": "Moe",
+  "description": "A light status merge tool, worked for Teng-Koa.",
+  "repository": "https://github.com/greenhat616/ncm-helper",
+  "author": "a632079 <a632079@qq.com>",
+  "license": "GPL",
+  "private": true,
+  "scripts": {
+    "commit": "git-cz",
+    "lint-md": "remark ."
+  },
+  "remarkConfig": {
+    "plugins": [
+      "remark-preset-lint-recommended"
+    ]
+  },
+  "devDependencies": {
+    "@commitlint/cli": "9.1.2",
+    "@commitlint/config-conventional": "9.1.2",
+    "@commitlint/prompt": "9.1.2",
+    "@commitlint/prompt-cli": "9.1.2",
+    "commitizen": "4.2.1",
+    "cz-conventional-changelog": "3.3.0",
+    "husky": "4.2.5",
+    "lint-staged": "10.2.13",
+    "remark-cli": "8.0.1",
+    "remark-preset-lint-recommended": "4.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/@commitlint/prompt"
+    }
+  },
+  "dependencies": {}
+}

@@ -12,6 +12,7 @@ var errorMessageMap = map[int]string{
 	403: "Forbidden.",
 	400: "Bad request.",
 	500: "Server error. If occurs frequently, please contact the author.",
+	503: "service Unavailable.",
 }
 
 // Success is a func that do the common situation of responding successful formation

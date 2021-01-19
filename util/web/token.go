@@ -5,12 +5,12 @@ import (
 	"github.com/spf13/viper"
 )
 
-// ValidTokenByContext is a func that valid the authorization by bearer token
+// ValidTokenByContext is a func that verify the authorization by bearer token
 func ValidTokenByContext(ctx *gin.Context) (ok bool) {
 	ok = false
 	masterKey := viper.GetString("server.auth.master_key")
 	token, isOk := ParseBearerTokenFromHeader(ctx)
-	if !isOk && token == masterKey { // fallback: support token that not encoded by base64
+	if !isOk && token == masterKey { // fallback: support token that was not encoded by base64
 		ok = true
 	} else if token == masterKey {
 		ok = true

@@ -5,7 +5,7 @@ Moe 是用于替代第一代 Teng-koa 统计服务的 GO 版本实现。
 
 ## 鸣谢
 
-Vive 离不开 **萌创团队** 以及 **一言项目组** 的支持，更离不开  [JetBrains](https://www.jetbrains.com/?from=hitokoto-osc) 为开源项目免费提供具有强生产力的 IDE 等相关授权。
+Moe 离不开 **萌创团队** 以及 **一言项目组** 的支持，更离不开  [JetBrains](https://www.jetbrains.com/?from=hitokoto-osc) 为开源项目免费提供具有强生产力的 IDE 等相关授权。
 [<img src=".github/jetbrains-variant-3.png" width="200"/>](https://www.jetbrains.com/?from=hitokoto-osc)
 
 ## 许可证
@@ -29,7 +29,7 @@ Vive 离不开 **萌创团队** 以及 **一言项目组** 的支持，更离不
 ### 初始开发环境
 
 1.  自行安装 Go SDK
-2.  克隆项目至 `$GOROOT/src/github.com/hitokoto-osc/Vive`
+2.  克隆项目至 `$GOROOT/src/github.com/hitokoto-osc/Moe`
 3.  安装 node 依赖。
 
 ```shell

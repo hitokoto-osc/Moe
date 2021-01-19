@@ -31,8 +31,8 @@ func initConfigDriver() {
 		}
 	} else {
 		// Parse path etc > home > localPath
-		viper.AddConfigPath("/etc/.ncm-helper")
-		viper.AddConfigPath("$HOME/.ncm-helper")
+		viper.AddConfigPath("/etc/.Moe")
+		viper.AddConfigPath("$HOME/.Moe")
 		viper.AddConfigPath(".")
 		viper.AddConfigPath("../conf")
 		err := viper.ReadInConfig()

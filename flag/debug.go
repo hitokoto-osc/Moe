@@ -6,5 +6,5 @@ import (
 )
 
 func registerDebugFlag() {
-	pflag.BoolVarP(&config.Debug, "debug", "d", false, "启动调试模式")
+	pflag.BoolVarP(&config.Debug, "debug", "D", false, "启动调试模式")
 }

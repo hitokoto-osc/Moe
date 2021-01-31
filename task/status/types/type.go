@@ -1,12 +1,11 @@
-package task
+package types
 
-var limitedHost = []string{
-	"v1.hitokoto.cn",
-	"international.hitokoto.cn",
-	"api.a632079.me",
+type DownServerData struct {
+	ID      string `json:"id"`
+	StartTS int64  `json:"start_timestamp"`
 }
 
-type statusData struct {
+type StatusData struct {
 	Load     [3]float64 `json:"load"`
 	Memory   float64    `json:"memory"`
 	Hitokoto struct {
@@ -14,10 +13,10 @@ type statusData struct {
 		Category    []string `json:"category"`
 		LastUpdated int64    `json:"last_updated"`
 	} `json:"hitokoto"`
-	ChildStatus []childStatus `json:"child_status"`
+	ChildStatus []ChildStatus `json:"child_status"`
 }
 
-type childStatus struct {
+type ChildStatus struct {
 	Memory struct {
 		Total float64 `json:"total"`
 		Free  float64 `json:"free"`
@@ -31,7 +30,7 @@ type childStatus struct {
 	} `json:"hitokoto"`
 }
 
-type requestStruct struct {
+type RequestStruct struct {
 	All struct {
 		Total          int64   `json:"total"`
 		PastMinute     int     `json:"past_minute"`
@@ -40,20 +39,19 @@ type requestStruct struct {
 		DayMap         [24]int `json:"day_map"`
 		FiveMinutesMap [5]int  `json:"five_minutes_map"`
 	} `json:"all"`
-	Hosts map[string]hostData `json:"hosts"`
+	Hosts map[string]HostData `json:"hosts"`
 }
 
 type GeneratedData struct {
-	Version         string           `json:"version"`
-	Children        []string         `json:"children"`
-	DownServer      []DownServerData `json:"down_server"`
-	Status          statusData       `json:"status"`
-	Requests        requestStruct    `json:"requests"`
-	LastUpdated     int64            `json:"last_updated"`
-	ServerTimestamp int64            `json:"Server_timestamp"`
+	Version     string           `json:"version"`
+	Children    []string         `json:"children"`
+	DownServer  []DownServerData `json:"down_server"`
+	Status      StatusData       `json:"status"`
+	Requests    RequestStruct    `json:"requests"`
+	LastUpdated int64            `json:"last_updated"`
 }
 
-type hostData struct {
+type HostData struct {
 	Total      int64   `json:"total"`
 	PastMinute int     `json:"past_minute"`
 	PastHour   int     `json:"past_hour"`
@@ -89,7 +87,7 @@ type APIStatusResponseData struct {
 			DayMap         [24]int `json:"day_map"`
 			FiveMinutesMap [5]int  `json:"five_minutes_map"`
 		} `json:"all"`
-		Hosts map[string]hostData `json:"hosts"`
+		Hosts map[string]HostData `json:"hosts"`
 	} `json:"requests"`
 	Feedback struct {
 		Kuertianshi string `json:"Kuertianshi"`

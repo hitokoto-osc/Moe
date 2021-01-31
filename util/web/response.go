@@ -13,10 +13,12 @@ var errorMessageMap = map[int]string{
 	400: "Bad request.",
 	500: "Server error. If occurs frequently, please contact the author.",
 	503: "service Unavailable.",
+	// Custom Error
+	-1: "The Status Data is not found. Please try again later.",
 }
 
 // Success is a func that do the common situation of responding successful formation
-func Success(ctx *gin.Context, data map[string]interface{}) {
+func Success(ctx *gin.Context, data interface{}) {
 	ctx.JSON(200, map[string]interface{}{
 		"code":       200,
 		"message":    "ok",
@@ -27,7 +29,7 @@ func Success(ctx *gin.Context, data map[string]interface{}) {
 }
 
 // Fail is a func that do the common situation of responding failed formation
-func Fail(ctx *gin.Context, data map[string]interface{}, code int) {
+func Fail(ctx *gin.Context, data interface{}, code int) {
 	var status int
 	if code <= 0 {
 		status = 200

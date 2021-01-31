@@ -25,7 +25,7 @@ var (
 var r *gin.Engine
 
 func init() {
-	// global set build information
+	// Global set build information
 	config.BuildTag = BuildTag
 	config.BuildTime = BuildTime
 	config.GoVersion = runtime.Version()
@@ -48,5 +48,7 @@ func init() {
 
 func main() {
 	// start Server
-	r.Run(":" + viper.GetString("server.port"))
+	if err := r.Run(":" + viper.GetString("server.port")); err != nil {
+		log.Fatal(err)
+	}
 }

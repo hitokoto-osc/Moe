@@ -4,3 +4,10 @@ secret = "" # fill your secret token
 
   [server.auth]
   master_key = "" # Master Key is the global key that will be required upon all requests if not empty
+
+[database]
+host = "127.0.0.1"
+port = 6379
+user = "root"
+password = ""
+dbname = "hitokoto_api_list"

@@ -13,7 +13,7 @@ import (
 func initConfigDriver() {
 	config.SetDefault()
 	// Parse env config
-	viper.SetEnvPrefix("ncm") // like: NCM_PORT=8000
+	viper.SetEnvPrefix("moe") // like: MOE_PORT=8000
 	viper.AutomaticEnv()
 	viper.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
@@ -40,4 +40,5 @@ func initConfigDriver() {
 			log.Fatalf("[prestart] Fatal error while reading config file: %s \n", err)
 		}
 	}
+	config.Inject()
 }

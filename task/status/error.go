@@ -1,4 +1,4 @@
-package task
+package status
 
 import (
 	"fmt"
@@ -9,6 +9,7 @@ type GenStatusRequestFailureError struct {
 	Code         int             // HTTP Response Code, or API Error code
 	Detail       string          // Error Message
 	ResponseData *resty.Response // Response Data
+	Stack        []byte          // Call Stack
 }
 
 func (e *GenStatusRequestFailureError) Error() string {

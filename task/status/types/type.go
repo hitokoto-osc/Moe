@@ -1,10 +1,12 @@
 package types
 
+// DownServerData 是程序内部存储宕机记录的类型
 type DownServerData struct {
 	ID      string `json:"id"`
 	StartTS int64  `json:"start_timestamp"`
 }
 
+// StatusData 是统计中状态 status 键的结构
 type StatusData struct {
 	Load     [3]float64 `json:"load"`
 	Memory   float64    `json:"memory"`
@@ -16,6 +18,7 @@ type StatusData struct {
 	ChildStatus []ChildStatus `json:"child_status"`
 }
 
+// ChildStatus 是统计中 `child_status` 键的结构
 type ChildStatus struct {
 	Memory struct {
 		Total float64 `json:"total"`
@@ -30,6 +33,7 @@ type ChildStatus struct {
 	} `json:"hitokoto"`
 }
 
+// RequestStruct 是统计中 requests 键的结构
 type RequestStruct struct {
 	All struct {
 		Total          int64   `json:"total"`
@@ -42,6 +46,7 @@ type RequestStruct struct {
 	Hosts map[string]HostData `json:"hosts"`
 }
 
+// GeneratedData 是统计的生成结构
 type GeneratedData struct {
 	Version     string           `json:"version"`
 	Children    []string         `json:"children"`
@@ -51,6 +56,7 @@ type GeneratedData struct {
 	LastUpdated int64            `json:"last_updated"`
 }
 
+// HostData 定义了 host 请求数结构
 type HostData struct {
 	Total      int64   `json:"total"`
 	PastMinute int     `json:"past_minute"`
@@ -59,6 +65,7 @@ type HostData struct {
 	DayMap     [24]int `json:"day_map"`
 }
 
+// APIStatusResponseData 定义了 v1 接口 `host/status` 的响应结构
 type APIStatusResponseData struct {
 	Name         string `json:"name"`
 	Version      string `json:"version"`

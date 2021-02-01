@@ -2,12 +2,14 @@ package database
 
 import (
 	"fmt"
+	// 导入 MySQL 库用于 sqlx 驱动
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/hitokoto-osc/Moe/config"
 	"github.com/jmoiron/sqlx"
 	log "github.com/sirupsen/logrus"
 )
 
+// DB 是 sqlx 的示例
 var DB *sqlx.DB
 
 func getConnectionURI() string {
@@ -20,6 +22,7 @@ func getConnectionURI() string {
 	)
 }
 
+// InitDB 用于初始化数据库连接
 func InitDB() {
 	log.Info("[database] 正在与数据库建立连接...")
 	var connectionURI = getConnectionURI

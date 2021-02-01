@@ -7,11 +7,13 @@ import (
 	"time"
 )
 
+// StoreStatusData 存储统计结果
 // TODO: 替换 interface{}
 func StoreStatusData(data interface{}) {
 	Collection.Set("status_data", data, 30*time.Minute)
 }
 
+// GetStatusData 获得缓存中的统计结果
 func GetStatusData() (*types.GeneratedData, bool) {
 	data, ok := Collection.Get("status_data")
 	if !ok {
@@ -21,6 +23,8 @@ func GetStatusData() (*types.GeneratedData, bool) {
 	return &r, ok
 }
 
+// GetAPIList 用于获取 API 记录
+// 此为快捷方法，如果缓存中为空会拉取数据库再写缓存
 func GetAPIList() []database.APIRecord {
 	var tmp interface{}
 	tmp, ok := Collection.Get("hitokoto_api_server_list")

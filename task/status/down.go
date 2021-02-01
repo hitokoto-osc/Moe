@@ -8,13 +8,15 @@ import (
 	"time"
 )
 
-var apiList = func () []database.APIRecord {
+var isTest = false
+var apiList = func() []database.APIRecord {
 	return cache.GetAPIList()
 }
-var isTest bool = false
 
+// SDownServer 是 []DownServer（请求异常产生的类型） 的抽象方法，提供了一系列的便捷操作
 type SDownServer []DownServer
 
+// Exist 用于检索切片中是否存在指定 key 的内容
 func (p *SDownServer) Exist(key string) bool {
 	for _, v := range *p {
 		if v.ID == key {
@@ -24,6 +26,7 @@ func (p *SDownServer) Exist(key string) bool {
 	return false
 }
 
+// Exclude 用于去除提供 keys 的元素
 func (p *SDownServer) Exclude(keys []string) {
 	for _, key := range keys {
 		t := 0
@@ -37,6 +40,7 @@ func (p *SDownServer) Exclude(keys []string) {
 	}
 }
 
+// Convert 可快捷转换类型为 []types.DownServerData
 func (p *SDownServer) Convert() []types.DownServerData {
 	var tmp []types.DownServerData
 	for _, v := range *p {
@@ -48,8 +52,10 @@ func (p *SDownServer) Convert() []types.DownServerData {
 	return tmp
 }
 
+// TDownServerList 是 []types.DownServerData 的操作类型
 type TDownServerList []types.DownServerData
 
+// DownServerList 是用于外部调用的保存宕机记录的变量
 var DownServerList = &TDownServerList{}
 
 func sliceExist(slice []database.APIRecord, key string) bool {
@@ -61,6 +67,7 @@ func sliceExist(slice []database.APIRecord, key string) bool {
 	return false
 }
 
+// Diff 与数据库中的接口记录对比，筛除失效 ID
 func (p *TDownServerList) Diff(list []database.APIRecord) {
 	t := 0
 	for _, v := range *p {
@@ -72,6 +79,7 @@ func (p *TDownServerList) Diff(list []database.APIRecord) {
 	*p = (*p)[:t]
 }
 
+// Merge 用于和新宕机集合对比，更新现有记录，返回新记录
 func (p *TDownServerList) Merge(newCollection SDownServer) []types.DownServerData {
 	p.Diff(apiList()) // 清除失效的节点
 	// 保留仍然宕机的节点
@@ -112,6 +120,7 @@ func (p *TDownServerList) Recover() {
 	}
 }
 
+// Exist 查询切片中是否存在给定 id 的记录
 func (p *TDownServerList) Exist(id string) bool {
 	for _, v := range *p {
 		if v.ID == id {
@@ -121,6 +130,7 @@ func (p *TDownServerList) Exist(id string) bool {
 	return false
 }
 
+//  Find 取得给定 ID 的记录
 func (p *TDownServerList) Find(id string) (*types.DownServerData, bool) {
 	for _, v := range *p {
 		if v.ID == id {
@@ -130,6 +140,7 @@ func (p *TDownServerList) Find(id string) (*types.DownServerData, bool) {
 	return nil, false
 }
 
+// Remove 移除给定 ID 的记录
 func (p *TDownServerList) Remove(id string) {
 	t := 0
 	for _, v := range *p {
@@ -144,14 +155,15 @@ func (p *TDownServerList) Remove(id string) {
 	}
 }
 
+// Add 向集合添加记录
 func (p *TDownServerList) Add(data ...types.DownServerData) {
 	*p = append(*p, data...)
 	if !isTest {
 		p.Save() // 手动触发保存
 	}
-
 }
 
+//Unique 集合去重
 func (p *TDownServerList) Unique() {
 	if len(*p) < 1024 {
 		*p = uniqueByLoop(*p)

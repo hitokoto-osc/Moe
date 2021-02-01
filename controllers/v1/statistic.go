@@ -7,6 +7,7 @@ import (
 	"github.com/hitokoto-osc/Moe/util/web"
 )
 
+// Statistic 是用于返回统计分析结果的控制器
 func Statistic(c *gin.Context) {
 	data, ok := cache.GetStatusData()
 	if !ok {

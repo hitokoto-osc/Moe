@@ -21,9 +21,9 @@ func setupRoutes(r *gin.Engine) {
 	r.GET("/", func(context *gin.Context) {
 		web.Success(context, map[string]interface{}{
 			"copyright": "Moe, a lightweight hitokoto status merge tool, authored by MoeTeam. Built with love.",
-			"env": map[string]interface{} {
-				"go": runtime.Version(),
-				"os": runtime.GOOS,
+			"env": map[string]interface{}{
+				"go":    runtime.Version(),
+				"os":    runtime.GOOS,
 				"debug": config.Debug,
 			},
 			"version": config.Version,

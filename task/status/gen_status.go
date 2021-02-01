@@ -8,12 +8,14 @@ import (
 	"time"
 )
 
+// LimitedHost 以编码模式定义了应统计的 API 主机地址
 var LimitedHost = []string{
 	"v1.hitokoto.cn",
 	"international.v1.hitokoto.cn",
 	"api.a632079.me",
 }
 
+// RunTask 用于运行统计流程
 func RunTask() {
 	// 获取 API 列表
 	log.Debug("[task.GenStatus] 开始执行合并任务...")
@@ -29,6 +31,7 @@ func RunTask() {
 	cache.StoreStatusData(*data)
 }
 
+// DownServer 定义了请求中出现异常时应递交给合并器的类型
 type DownServer struct {
 	ID                             string
 	StartTS                        int64

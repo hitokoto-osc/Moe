@@ -16,9 +16,7 @@ func performRequest(records []database.APIRecord) (data []types.APIStatusRespons
 		url := record.URL + "/status"
 		result, err := requestServerAPI(url)
 		if err != nil {
-			if e, ok := err.(*GenStatusRequestFailureError); !ok {
-				log.Fatal(e) // TODO: 处理此种无奈的情况
-			} else {
+			if e, ok := err.(*GenStatusRequestFailureError); ok {
 				// 添加到 DownServer 列表
 				downList = append(downList, DownServer{
 					ID:                             id,
@@ -27,6 +25,9 @@ func performRequest(records []database.APIRecord) (data []types.APIStatusRespons
 					Error:                          e,
 					IsGenStatusRequestFailureError: true,
 				})
+			} else {
+				// 错误类型应该可预测；此处错误断言失败，遵守 let it crash 哲学，在遇到崩溃的情况下未来增加预测分支
+				log.Fatal(e) // TODO: 处理此种无奈的情况
 			}
 		} else {
 			// 正常记录

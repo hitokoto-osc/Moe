@@ -92,52 +92,53 @@ func TestTDownServerListDiff(t *testing.T) {
 
 func TestTDownServerListMerge(t *testing.T) {
 	isTest = true
-	apiList = func () []database.APIRecord {
+	apiList = func() []database.APIRecord {
 		return []database.APIRecord{
-		database.APIRecord{
-			Name: "test_id_1",
-		},
-		database.APIRecord{
-			Name: "test_id_2",
-		},
-		database.APIRecord{
-			Name: "test_id_3",
-		},
-	}}
+			database.APIRecord{
+				Name: "test_id_1",
+			},
+			database.APIRecord{
+				Name: "test_id_2",
+			},
+			database.APIRecord{
+				Name: "test_id_3",
+			},
+		}
+	}
 	s := TDownServerList{
 		types.DownServerData{
-			ID: "test_id_1",
+			ID:      "test_id_1",
 			StartTS: 1612101075609,
 		},
 		types.DownServerData{
-			ID: "test_id_2",
+			ID:      "test_id_2",
 			StartTS: 1612101075609,
 		},
 	}
 	c := SDownServer{
 		DownServer{
-			ID: "test_id_1",
+			ID:      "test_id_1",
 			StartTS: 1612101075609,
 		},
 		DownServer{
-			ID: "test_id_3",
+			ID:      "test_id_3",
 			StartTS: 1612101075609,
 		},
 	}
 	s.Merge(c)
 	assert.ElementsMatch(t, s, TDownServerList{
 		types.DownServerData{
-			ID: "test_id_1",
+			ID:      "test_id_1",
 			StartTS: 1612101075609,
 		},
 		types.DownServerData{
-			ID: "test_id_3",
+			ID:      "test_id_3",
 			StartTS: 1612101075609,
 		},
 	}, "执行合并操作后，切片应该相同")
 }
 
-func TestTDownServerListExist (t *testing.T) {
+func TestTDownServerListExist(t *testing.T) {
 	isTest = true
 	s := TDownServerList{
 		types.DownServerData{
@@ -149,7 +150,7 @@ func TestTDownServerListExist (t *testing.T) {
 	assert.False(t, s.Exist("test_id_2"), "`test_id_2` 不存在")
 }
 
-func TestTDownServerListFind  (t *testing.T) {
+func TestTDownServerListFind(t *testing.T) {
 	isTest = true
 	s := TDownServerList{
 		types.DownServerData{

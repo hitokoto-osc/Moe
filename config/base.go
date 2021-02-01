@@ -11,8 +11,6 @@ var (
 	File = ""
 	// GoVersion is the version of go, will be injected at runtime
 	GoVersion = "Unknown"
-	// MakeVersion is the version of make in release, will be injected in release mode
-	MakeVersion = "Unknown"
 	// Version is the version of this program, will be injected in release mode
 	Version = "development"
 )

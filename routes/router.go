@@ -28,7 +28,6 @@ func setupRoutes(r *gin.Engine) {
 			},
 			"version": config.Version,
 			"build_info": map[string]interface{}{
-				"make": config.MakeVersion,
 				"hash": config.BuildTag,
 				"time": config.BuildTime,
 			},

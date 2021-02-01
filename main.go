@@ -16,8 +16,6 @@ var (
 	BuildTag = "Unknown"
 	// BuildTime is a time, when it build, that will be injected in release mode
 	BuildTime = "Unknown"
-	// MakeVersion is the version of make in release, will be injected in release mode
-	MakeVersion = "Unknown"
 	// Version is the version of this program, will be injected in release mode
 	Version = "development"
 )
@@ -29,7 +27,6 @@ func init() {
 	config.BuildTag = BuildTag
 	config.BuildTime = BuildTime
 	config.GoVersion = runtime.Version()
-	config.MakeVersion = MakeVersion
 	config.Version = Version
 
 	// Parse Flag

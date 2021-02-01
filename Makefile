@@ -43,3 +43,7 @@ test-coverage:
 clean:
 	@rm -f coverage.txt
 	@rm -f cover.out
+
+release:
+	@echo Releasing by GoReleaser...
+	@

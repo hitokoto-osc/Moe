@@ -46,4 +46,4 @@ clean:
 
 release:
 	@echo Releasing by GoReleaser...
-	@
+	@goreleaser release

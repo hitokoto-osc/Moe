@@ -6,6 +6,7 @@
   "license": "GPL",
   "private": true,
   "scripts": {
+    "postinstall": "husky install",
     "commit": "git-cz",
     "lint-md": "remark ."
   },
@@ -25,11 +26,6 @@
     "lint-staged": "10.5.4",
     "remark-cli": "9.0.0",
     "remark-preset-lint-recommended": "5.0.0"
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   },
   "config": {
     "commitizen": {

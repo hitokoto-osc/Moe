@@ -7,8 +7,10 @@ import (
 	"path/filepath"
 	"time"
 )
+
 // Collection 存储缓存实例
 var Collection *cache.Cache
+
 // DataFilePath 是缓存记录文件地址
 var DataFilePath = filepath.Join(util.GetExecDir(), "cache.data")
 

@@ -16,7 +16,7 @@ func registerVersionFlag() {
 
 func handleVersionFlag() {
 	if V {
-		fmt.Printf("Moe, A lightweight hitokoto status data merger. Authored by a632079\n版本: %s\nGit Tag: %s\n编译时间: %s\n编译环境: %s\n", config.Version, config.BuildTag, config.BuildTime, config.GoVersion)
+		fmt.Printf("Moe, A lightweight hitokoto status data merger. Authored by a632079\n版本: %s\n版本哈希: %s\n提交时间: %s\n编译时间: %s\n编译环境: %s\n", config.Version, config.BuildTag, config.CommitTime, config.BuildTime, config.GoVersion)
 		os.Exit(0)
 	}
 }

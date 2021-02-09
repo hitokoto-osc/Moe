@@ -19,6 +19,8 @@ var (
 	BuildTag = "Unknown"
 	// BuildTime is a time, when it build, that will be injected in release mode
 	BuildTime = "Unknown"
+	// CommitTime is a time, when it is committed, that will be injected in release mode
+	CommitTime = "Unknown"
 	// Version is the version of this program, will be injected in release mode
 	Version = "development"
 )

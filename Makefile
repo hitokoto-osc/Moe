@@ -46,4 +46,10 @@ clean:
 
 release:
 	@echo Releasing by GoReleaser...
-	@goreleaser release
+	@goreleaser release --rm-dist
+
+precommit: vet lint test
+	go fmt ./...
+	go mod tidy
+	git add .
+

@@ -11,6 +11,8 @@ import (
 	"runtime"
 )
 
+var osInfo = runtime.GOOS + " " + runtime.GOARCH
+
 func setupRoutes(r *gin.Engine) {
 	if !viper.IsSet("server.secret") {
 		log.Fatal("[web] can't start server because of the secret is not set.")
@@ -20,16 +22,27 @@ func setupRoutes(r *gin.Engine) {
 	// Setup router
 	r.GET("/", func(context *gin.Context) {
 		web.Success(context, map[string]interface{}{
-			"copyright": "Moe, a lightweight hitokoto status merge tool, authored by MoeTeam. Built with love.",
-			"env": map[string]interface{}{
-				"go":    runtime.Version(),
-				"os":    runtime.GOOS,
-				"debug": config.Debug,
-			},
-			"version": config.Version,
 			"build_info": map[string]interface{}{
-				"hash": config.BuildTag,
-				"time": config.BuildTime,
+				"version":      config.Version,
+				"commit_hash":  config.BuildTag,
+				"commit_time":  config.BuildTime,
+				"generated_by": runtime.Version(),
+				"os":           osInfo,
+				"debug":        config.Debug,
+			},
+			"donate":    "Love us? donate at https://hitokoto.cn/donate",
+			"copyright": "Moe, a lightweight hitokoto status merge tool, authored by MoeTeam. Built with love.",
+			"feedback": map[string]interface{}{
+				"tips": "if you find anything that not works as expected, you can contact us directly. Thanks.",
+				"email": []string{
+					"i@loli.oneline",
+					"i@freejishu.com",
+					"i@a632079.me",
+				},
+				"qq": map[string]int{
+					"group":  33542648,
+					"person": 442971704,
+				},
 			},
 		})
 	})

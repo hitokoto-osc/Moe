@@ -5,8 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/hitokoto-osc/Moe/config"
 	"github.com/hitokoto-osc/Moe/middlewares"
-	"github.com/thinkerou/favicon"
-	"os"
+	"github.com/hitokoto-osc/Moe/util/web"
 )
 
 // InitWebServer is a web server register, implemented by gin
@@ -20,15 +19,21 @@ func InitWebServer() *gin.Engine {
 
 	// load middleware
 	r.Use(requestid.New())
-
-	// favicon.ico
-	if _, err := os.Stat("../static/resource/favicon.ico"); err == nil {
-		r.Use(favicon.New("../static/resource/favicon.ico"))
-	} else if _, err := os.Stat("./static/resource/favicon.ico"); err == nil {
-		r.Use(favicon.New("./static/resource/favicon.ico"))
-	}
-
 	r.Use(middlewares.Cors())
+
+	// 404
+	r.NoRoute(func(context *gin.Context) {
+		context.Status(404)
+		web.Fail(context, nil, 404)
+		return
+	})
+
+	// 405
+	r.NoMethod(func(context *gin.Context) {
+		context.Status(405)
+		web.Fail(context, nil, 405)
+		return
+	})
 
 	// setup routes
 	setupRoutes(r)

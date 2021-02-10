@@ -7,10 +7,11 @@ import (
 )
 
 var errorMessageMap = map[int]string{
+	400: "Bad request.",
 	401: "Unauthorized.",
 	404: "Not found specific route/file.",
 	403: "Forbidden.",
-	400: "Bad request.",
+	405: "Method not permitted.",
 	500: "Server error. If occurs frequently, please contact the author.",
 	503: "service Unavailable.",
 	// Custom Error

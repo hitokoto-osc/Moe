@@ -49,7 +49,7 @@ func mergeRequestsRecord(data *types.GeneratedData, v *types.APIStatusResponseDa
 			t, o := data.Requests.Hosts[host]
 			if !o {
 				data.Requests.Hosts[host] = hostData
-				t = data.Requests.Hosts[host]
+				continue
 			}
 			t.Total += hostData.Total
 			t.PastMinute += hostData.PastMinute
@@ -58,6 +58,7 @@ func mergeRequestsRecord(data *types.GeneratedData, v *types.APIStatusResponseDa
 			for i := range hostData.DayMap {
 				t.DayMap[i] += hostData.DayMap[i]
 			}
+			data.Requests.Hosts[host] = t
 		}
 	}
 }

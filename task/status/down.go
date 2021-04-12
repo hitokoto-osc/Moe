@@ -1,7 +1,6 @@
 package status
 
 import (
-	"fmt"
 	"github.com/hitokoto-osc/Moe/cache"
 	"github.com/hitokoto-osc/Moe/database"
 	"github.com/hitokoto-osc/Moe/task/status/types"
@@ -102,7 +101,7 @@ func (p *TDownServerList) Merge(newCollection SDownServer) []types.DownServerDat
 		})
 	}
 	if !isTest {
-		fmt.Print(isTest)
+		// fmt.Print(isTest)
 		p.Save() // 手动触发保存
 	}
 	return *p
@@ -163,7 +162,7 @@ func (p *TDownServerList) Add(data ...types.DownServerData) {
 	}
 }
 
-//Unique 集合去重
+// Unique 集合去重
 func (p *TDownServerList) Unique() {
 	if len(*p) < 1024 {
 		*p = uniqueByLoop(*p)

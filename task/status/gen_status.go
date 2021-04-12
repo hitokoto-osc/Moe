@@ -51,14 +51,17 @@ func genStatusData(inputData []types.APIStatusResponseData, downServerList []Dow
 			log.Errorf("[task.genStatus] 服务标识：%s, 获取统计信息时出错，错误原因：%s. 触发时间：%v", downServer.ID, downServer.Cause, downServer.StartTS)
 			if downServer.IsGenStatusRequestFailureError {
 				e := downServer.Error.(*GenStatusRequestFailureError)
-				log.Error(e.ResponseData)
-				log.Error(e.Stack)
+				// log.Error(e.ResponseData)
+				log.Error("[task.genStatus] 调用堆栈：" + string(e.Stack))
 			} else {
 				log.Error(downServer.Error)
 			}
 		}
+		// log.Debug(downServerList)
 		result := DownServerList.Merge(downServerList)
+		// log.Debug(result)
 		data.DownServer = append(data.DownServer, result...)
+		// log.Debug(data.DownServer)
 	}
 	if inputData == nil || len(inputData) == 0 {
 		// 抛出异常
@@ -81,5 +84,6 @@ func genStatusData(inputData []types.APIStatusResponseData, downServerList []Dow
 		}
 	}
 	data.LastUpdated = time.Now().UnixNano() / 1e6
+	// log.Debug(data.DownServer)
 	return
 }

@@ -65,8 +65,9 @@ func mergeRequestsRecord(data *types.GeneratedData, v *types.APIStatusResponseDa
 
 func initGenData(data *types.GeneratedData, v *types.APIStatusResponseData) {
 	*data = types.GeneratedData{
-		Version:  v.Version,
-		Children: []string{v.ServerID},
+		Version:    v.Version,
+		DownServer: data.DownServer,
+		Children:   []string{v.ServerID},
 		Status: types.StatusData{
 			Load:   v.ServerStatus.Load,
 			Memory: v.ServerStatus.Memory.Usage,

@@ -8,6 +8,7 @@ import (
 	"github.com/hitokoto-osc/Moe/flag"
 	"github.com/hitokoto-osc/Moe/prestart"
 	"github.com/hitokoto-osc/Moe/routes"
+	"github.com/hitokoto-osc/Moe/task/status"
 	"github.com/hitokoto-osc/Moe/task/status/types"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -31,6 +32,7 @@ func init() {
 	// TODO: 用更好的方法修复缓存读写问题
 	gob.Register([]database.APIRecord{})
 	gob.Register(types.GeneratedData{})
+	gob.Register(status.TDownServerList{})
 
 	// Global set build information
 	config.BuildTag = BuildTag

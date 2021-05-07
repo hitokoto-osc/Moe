@@ -326,7 +326,7 @@ __metadata:
     "@commitlint/config-conventional": 12.1.1
     "@commitlint/prompt": 12.1.1
     "@commitlint/prompt-cli": 12.1.1
-    commitizen: 4.2.3
+    commitizen: 4.2.4
     cz-conventional-changelog: 3.3.0
     husky: 6.0.0
     lint-staged: 10.5.4
@@ -1009,15 +1009,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commitizen@npm:4.2.3":
-  version: 4.2.3
-  resolution: "commitizen@npm:4.2.3"
+"commitizen@npm:4.2.4":
+  version: 4.2.4
+  resolution: "commitizen@npm:4.2.4::__archiveUrl=https%3A%2F%2Fregistry.nlark.com%2Fcommitizen%2Fdownload%2Fcommitizen-4.2.4.tgz"
   dependencies:
     cachedir: 2.2.0
     cz-conventional-changelog: 3.2.0
     dedent: 0.7.0
     detect-indent: 6.0.0
-    find-node-modules: 2.0.0
+    find-node-modules: ^2.1.2
     find-root: 1.1.0
     fs-extra: 8.1.0
     glob: 7.1.4
@@ -1031,7 +1031,7 @@ __metadata:
     commitizen: bin/commitizen
     cz: bin/git-cz
     git-cz: bin/git-cz
-  checksum: a5c35a63d33b4f59e2028388010a2ff4af2168d7f27c73803f74dfd2eddffd33f1eae3d5ff172cb66f8e4cea4326fcdccd414263f61fd633c5b1478f9580a7da
+  checksum: 5b0ae7310e91616e5f3c5149e355b0e675b1132bbad4c3292afe04c91192be81859b2c22f8fef00887310b270ab01b9aef60c6fc4e9bc47fbf208c209f1d8ff5
   languageName: node
   linkType: hard
 
@@ -1648,6 +1648,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"find-node-modules@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "find-node-modules@npm:2.1.2::__archiveUrl=https%3A%2F%2Fregistry.nlark.com%2Ffind-node-modules%2Fdownload%2Ffind-node-modules-2.1.2.tgz"
+  dependencies:
+    findup-sync: ^4.0.0
+    merge: ^2.1.0
+  checksum: c8db6065d100d5fbd3d0202451ab379362e7efd9b7bf382e8df92348ea4e89e4971c52541c59b78ce5b5bcfa1bceb4ded0b57a5564c3a3574909a9f17085b58c
+  languageName: node
+  linkType: hard
+
 "find-root@npm:1.1.0":
   version: 1.1.0
   resolution: "find-root@npm:1.1.0"
@@ -1693,6 +1703,18 @@ __metadata:
     micromatch: ^3.0.4
     resolve-dir: ^1.0.1
   checksum: cafd706255f3c0e3491e4ee2eb9e585e6e76999bdc50e1ecde6d4ef7316d8dbcae77eb49d27b1f61ff011971933de43e90cb7cb535620b2616eb2ff89baf9347
+  languageName: node
+  linkType: hard
+
+"findup-sync@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "findup-sync@npm:4.0.0::__archiveUrl=https%3A%2F%2Fregistry.nlark.com%2Ffindup-sync%2Fdownload%2Ffindup-sync-4.0.0.tgz"
+  dependencies:
+    detect-file: ^1.0.0
+    is-glob: ^4.0.0
+    micromatch: ^4.0.2
+    resolve-dir: ^1.0.1
+  checksum: 94131e1107ad63790ed00c4c39ca131a93ea602607bd97afeffd92b69a9a63cf2c6f57d6db88cb753fe748ac7fde79e1e76768ff784247026b7c5ebf23ede3a0
   languageName: node
   linkType: hard
 
@@ -3026,6 +3048,13 @@ fsevents@~2.1.2:
   version: 1.2.1
   resolution: "merge@npm:1.2.1"
   checksum: 2298c4fdcf64561f320b92338681f7ffcafafb579a6e294066ae3e7bd10ae25df363903d2f028072733b9f79a1f75d2b999aef98ad5d73de13641da39cda0913
+  languageName: node
+  linkType: hard
+
+"merge@npm:^2.1.0":
+  version: 2.1.1
+  resolution: "merge@npm:2.1.1::__archiveUrl=https%3A%2F%2Fregistry.nlark.com%2Fmerge%2Fdownload%2Fmerge-2.1.1.tgz"
+  checksum: 9c36b0e25aa53b3f7305d7cf0f330397f1142cf311802b681e5619f12e986a790019b8246c1c0df21701c8652449f9046b0129551030097ef563d1958c823249
   languageName: node
   linkType: hard
 

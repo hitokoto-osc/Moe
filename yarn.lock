@@ -356,7 +356,7 @@ __metadata:
     commitizen: 4.2.4
     cz-conventional-changelog: 3.3.0
     husky: 7.0.1
-    lint-staged: 11.0.0
+    lint-staged: 11.0.1
     remark-cli: 9.0.0
     remark-preset-lint-recommended: 5.0.0
   languageName: unknown
@@ -2694,9 +2694,9 @@ fsevents@~2.1.2:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:11.0.0":
-  version: 11.0.0
-  resolution: "lint-staged@npm:11.0.0::__archiveUrl=https%3A%2F%2Fregistry.nlark.com%2Flint-staged%2Fdownload%2Flint-staged-11.0.0.tgz"
+"lint-staged@npm:11.0.1":
+  version: 11.0.1
+  resolution: "lint-staged@npm:11.0.1::__archiveUrl=https%3A%2F%2Fregistry.nlark.com%2Flint-staged%2Fdownload%2Flint-staged-11.0.1.tgz"
   dependencies:
     chalk: ^4.1.1
     cli-truncate: ^2.1.0
@@ -2715,7 +2715,7 @@ fsevents@~2.1.2:
     stringify-object: ^3.3.0
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: 3be24b4a88799264bbb9baeedfc5be278d25aa85dc766c5328da23d5d92300c0a163563b455d530ca2a74510a161f17623e846e1aca81e44f389108274ad2acd
+  checksum: 5046fbaa020e573ca31a4b7a3819cdd5383912c53dc55f5e68db4a525eba1fc23312f4cf0162742ef6a358464394e584b718049cd62b883b1d4f06fdfb163022
   languageName: node
   linkType: hard
 

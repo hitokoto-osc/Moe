@@ -47,6 +47,7 @@ func performRequest(records []database.APIRecord) (data []types.APIStatusRespons
 			wg.Done()
 		}()
 	}
+	wg.Wait()
 	return
 }
 

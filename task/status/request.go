@@ -55,10 +55,10 @@ func requestServerAPI(url string) (data types.APIStatusResponseData, err error) 
 	client := resty.New()
 	client.
 		// 设置重试逻辑
-		SetRetryCount(3). // 重试次数
-		SetRetryWaitTime(1 * time.Second).
-		SetRetryMaxWaitTime(3 * time.Second).
-		SetTimeout(2 * time.Second)
+		SetRetryCount(2). // 重试次数
+		SetRetryWaitTime(200 * time.Millisecond).
+		SetRetryMaxWaitTime(2 * time.Second).
+		SetTimeout(1 * time.Second)
 	responseData, e := client.
 		R().
 		EnableTrace().

@@ -7,32 +7,45 @@ import (
 	"github.com/hitokoto-osc/Moe/task/status/types"
 	log "github.com/sirupsen/logrus"
 	"runtime/debug"
+	"sync"
 	"time"
 )
 
 func performRequest(records []database.APIRecord) (data []types.APIStatusResponseData, downList []DownServer) {
+	wg := sync.WaitGroup{} // 使用 waitGroup 控制并发
+	wg.Add(len(records))
+	downListMutex := sync.Mutex{}
+	dataMutex := sync.Mutex{}
 	for _, record := range records {
-		id := record.Name
-		url := record.URL + "/status"
-		result, err := requestServerAPI(url)
-		if err != nil {
-			if e, ok := err.(*GenStatusRequestFailureError); ok {
-				// 添加到 DownServer 列表
-				downList = append(downList, DownServer{
-					ID:                             id,
-					StartTS:                        time.Now().UnixNano() / 1e6,
-					Cause:                          e.Detail,
-					Error:                          e,
-					IsGenStatusRequestFailureError: true,
-				})
+		record := record // 此行不能去除
+		go func() {
+			id := record.Name
+			url := record.URL + "/status"
+			result, err := requestServerAPI(url)
+			if err != nil {
+				if e, ok := err.(*GenStatusRequestFailureError); ok {
+					// 添加到 DownServer 列表
+					downListMutex.Lock()
+					downList = append(downList, DownServer{
+						ID:                             id,
+						StartTS:                        time.Now().UnixNano() / 1e6,
+						Cause:                          e.Detail,
+						Error:                          e,
+						IsGenStatusRequestFailureError: true,
+					})
+					downListMutex.Unlock()
+				} else {
+					// 错误类型应该可预测；此处错误断言失败，遵守 let it crash 哲学，在遇到崩溃的情况下未来增加预测分支
+					log.Fatal(e) // TODO: 处理此种无奈的情况
+				}
 			} else {
-				// 错误类型应该可预测；此处错误断言失败，遵守 let it crash 哲学，在遇到崩溃的情况下未来增加预测分支
-				log.Fatal(e) // TODO: 处理此种无奈的情况
+				// 正常记录
+				dataMutex.Lock()
+				data = append(data, result)
+				dataMutex.Unlock()
 			}
-		} else {
-			// 正常记录
-			data = append(data, result)
-		}
+			wg.Done()
+		}()
 	}
 	return
 }

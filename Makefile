@@ -10,30 +10,30 @@ all:
 	build
 
 get-tools:
-	@echo Installing tools...
-	go get -u github.com/mgechev/revive
+	@echo "Installing tools..."
+	go install github.com/mgechev/revive@latest
 
 dep: # get dependencies
-	@echo Installing Dependencies...
+	@echo "Installing Dependencies..."
 	go mod download
 
 lint: get-tools ## Lint Golang files
-	@echo
-	@echo Linting go codes with revive...
+	@echo;
+	@echo "Linting go codes with revive...";
 	@revive -config ./.revive.toml -formatter stylish ${PKG_LIST}
 
 vet:
-	@echo Linting go codes with go vet...
+	@echo "Linting go codes with go vet..."
 	go vet ./...
 
 build: dep
 	@echo;
-	@echo Building...;
+	@echo "Building...";
 	@mkdir -p dist;
-	go build -v -o dist/${PROJECT_NAME} .;
+	go build -v -o dist/${PROJECT_NAME} .
 
 test:
-	@echo Testing...
+	@echo "Testing..."
 	@go test -short ${PKG_LIST}
 
 test-coverage:
@@ -45,7 +45,7 @@ clean:
 	@rm -f cover.out
 
 release:
-	@echo Releasing by GoReleaser...
+	@echo "Releasing by GoReleaser..."
 	@goreleaser release --rm-dist
 
 precommit: vet lint test

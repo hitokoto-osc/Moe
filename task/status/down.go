@@ -129,7 +129,7 @@ func (p *TDownServerList) Exist(id string) bool {
 	return false
 }
 
-//  Find 取得给定 ID 的记录
+// Find 取得给定 ID 的记录
 func (p *TDownServerList) Find(id string) (*types.DownServerData, bool) {
 	for _, v := range *p {
 		if v.ID == id {

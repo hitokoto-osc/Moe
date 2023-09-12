@@ -2,6 +2,9 @@ package status
 
 import (
 	"encoding/json"
+	"github.com/hitokoto-osc/Moe/logging"
+	"github.com/pkg/errors"
+	"go.uber.org/zap"
 	"runtime/debug"
 	"sync"
 	"time"
@@ -9,22 +12,23 @@ import (
 	"github.com/go-resty/resty/v2"
 	"github.com/hitokoto-osc/Moe/database"
 	"github.com/hitokoto-osc/Moe/task/status/types"
-	log "github.com/sirupsen/logrus"
 )
 
 func performRequest(records []database.APIRecord) (data []types.APIStatusResponseData, downList []DownServer) {
+	logger := logging.GetLogger()
+	defer logger.Sync()
 	wg := sync.WaitGroup{} // 使用 waitGroup 控制并发
 	wg.Add(len(records))
 	downListMutex := sync.Mutex{}
 	dataMutex := sync.Mutex{}
 	for _, record := range records {
-		record := record // 此行不能去除
-		go func() {
+		go func(record database.APIRecord) {
 			id := record.Name
 			url := record.URL + "/status"
 			result, err := requestServerAPI(url)
 			if err != nil {
-				if e, ok := err.(*GenStatusRequestFailureError); ok {
+				var e *GenStatusRequestFailureError
+				if ok := errors.As(err, &e); ok {
 					// 添加到 DownServer 列表
 					downListMutex.Lock()
 					downList = append(downList, DownServer{
@@ -37,7 +41,7 @@ func performRequest(records []database.APIRecord) (data []types.APIStatusRespons
 					downListMutex.Unlock()
 				} else {
 					// 错误类型应该可预测；此处错误断言失败，遵守 let it crash 哲学，在遇到崩溃的情况下未来增加预测分支
-					log.Fatal(e) // TODO: 处理此种无奈的情况
+					logger.Fatal("触发未知错误，无法解决。", zap.Error(e)) // TODO: 处理此种无奈的情况
 				}
 			} else {
 				// 正常记录
@@ -46,7 +50,7 @@ func performRequest(records []database.APIRecord) (data []types.APIStatusRespons
 				dataMutex.Unlock()
 			}
 			wg.Done()
-		}()
+		}(record)
 	}
 	wg.Wait()
 	return
@@ -83,7 +87,7 @@ func requestServerAPI(url string) (data types.APIStatusResponseData, err error) 
 	}
 	// status is ok
 	var buffer map[string]interface{}
-	if e := json.Unmarshal(responseData.Body(), &buffer); e != nil {
+	if e = json.Unmarshal(responseData.Body(), &buffer); e != nil {
 		err = &GenStatusRequestFailureError{
 			Code:         responseData.StatusCode(),
 			Detail:       "JSON parsed failed, detail:" + e.Error(),
@@ -103,7 +107,7 @@ func requestServerAPI(url string) (data types.APIStatusResponseData, err error) 
 	}
 	// 正常数据
 	var authenticResponseData types.APIStatusResponseData
-	if e := json.Unmarshal(responseData.Body(), &authenticResponseData); e != nil {
+	if e = json.Unmarshal(responseData.Body(), &authenticResponseData); e != nil {
 		err = &GenStatusRequestFailureError{
 			Code:         responseData.StatusCode(),
 			Detail:       "authentic status JSON parsed failed, detail:" + e.Error(),

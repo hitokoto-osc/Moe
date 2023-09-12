@@ -1,12 +1,14 @@
 package status
 
 import (
+	"errors"
+	"github.com/hitokoto-osc/Moe/logging"
+	"go.uber.org/zap"
 	"time"
 
 	"github.com/blang/semver/v4"
 	"github.com/hitokoto-osc/Moe/cache"
 	"github.com/hitokoto-osc/Moe/task/status/types"
-	log "github.com/sirupsen/logrus"
 )
 
 // LimitedHost 以编码模式定义了应统计的 API 主机地址
@@ -18,15 +20,17 @@ var LimitedHost = []string{
 
 // RunTask 用于运行统计流程
 func RunTask() {
+	logger := logging.GetLogger()
+	defer logger.Sync()
 	// 获取 API 列表
-	log.Debug("[task.GenStatus] 开始执行合并任务...")
-	log.Debug("[task.GenStatus] 取得 API 列表...")
-	apiList := cache.GetAPIList()
+	logger.Debug("[task.GenStatus] 开始执行合并任务...")
+	logger.Debug("[task.GenStatus] 取得 API 列表...")
+	apiList := cache.MustGetAPIList()
 	// log.Debug(apiList)
-	log.Debug("[task.GenStatus] 发起请求...")
+	logger.Debug("[task.GenStatus] 发起请求...")
 	dataList, downServerList := performRequest(apiList)
 	// log.Debug(dataList, downServerList)
-	log.Debug("[task.GenStatus] 合并请求记录...")
+	logger.Debug("[task.GenStatus] 合并请求记录...")
 	data := genStatusData(dataList, downServerList)
 	// log.Debug(data)
 	cache.StoreStatusData(*data)
@@ -42,20 +46,32 @@ type DownServer struct {
 }
 
 func genStatusData(inputData []types.APIStatusResponseData, downServerList []DownServer) (data *types.GeneratedData) {
+	logger := logging.GetLogger()
+	defer logger.Sync()
 	// TODO: recover 捕获错误
 	var baseHitokotoAPIVersion semver.Version
 	data = &types.GeneratedData{}
 	data.DownServer = []types.DownServerData{}
 	if downServerList != nil && len(downServerList) > 0 {
-		log.Debug("[task.GenStatus] 存在宕机节点.")
+		logger.Debug("[task.GenStatus] 存在宕机节点.")
 		for _, downServer := range downServerList {
-			log.Errorf("[task.genStatus] 服务标识：%s, 获取统计信息时出错，错误原因：%s. 触发时间：%v", downServer.ID, downServer.Cause, downServer.StartTS)
 			if downServer.IsGenStatusRequestFailureError {
-				e := downServer.Error.(*GenStatusRequestFailureError)
+				var e *GenStatusRequestFailureError
+				errors.As(downServer.Error, &e)
 				// log.Error(e.ResponseData)
-				log.Error("[task.genStatus] 调用堆栈：" + string(e.Stack))
+				logger.Error("[task.genStatus] 获取统计信息时出错：请求异常。",
+					zap.String("server_id", downServer.ID),
+					zap.String("cause", downServer.Cause),
+					zap.Int64("occurred_at", downServer.StartTS),
+					zap.Any("detail", e),
+				)
 			} else {
-				log.Error(downServer.Error)
+				logger.Error("[task.genStatus] 获取统计信息时出错：未知错误。",
+					zap.String("server_id", downServer.ID),
+					zap.String("cause", downServer.Cause),
+					zap.Int64("occurred_at", downServer.StartTS),
+					zap.Error(downServer.Error),
+				)
 			}
 		}
 		// log.Debug(downServerList)
@@ -67,7 +83,7 @@ func genStatusData(inputData []types.APIStatusResponseData, downServerList []Dow
 	if inputData == nil || len(inputData) == 0 {
 		// 抛出异常
 		data.LastUpdated = time.Now().UnixNano() / 1e6
-		log.Warn("[task.GenStatus] 没有节点正常工作.")
+		logger.Warn("[task.GenStatus] 没有节点正常工作.")
 		return
 	}
 	// 合并主体记录

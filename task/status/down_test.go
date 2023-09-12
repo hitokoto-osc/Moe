@@ -93,7 +93,7 @@ func TestTDownServerListDiff(t *testing.T) {
 
 func TestTDownServerListMerge(t *testing.T) {
 	isTest = true
-	apiList = func() []database.APIRecord {
+	getAPIList = func() []database.APIRecord {
 		return []database.APIRecord{
 			database.APIRecord{
 				Name: "test_id_1",

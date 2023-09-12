@@ -9,8 +9,8 @@ import (
 )
 
 var isTest = false
-var apiList = func() []database.APIRecord {
-	return cache.GetAPIList()
+var getAPIList = func() []database.APIRecord {
+	return cache.MustGetAPIList()
 }
 
 // SDownServer 是 []DownServer（请求异常产生的类型） 的抽象方法，提供了一系列的便捷操作
@@ -81,7 +81,7 @@ func (p *TDownServerList) Diff(list []database.APIRecord) {
 
 // Merge 用于和新宕机集合对比，更新现有记录，返回新记录
 func (p *TDownServerList) Merge(newCollection SDownServer) []types.DownServerData {
-	p.Diff(apiList()) // 清除失效的节点
+	p.Diff(getAPIList()) // 清除失效的节点
 	// 保留仍然宕机的节点
 	t := 0
 	var s []string

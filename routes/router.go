@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"github.com/hitokoto-osc/Moe/logging"
 	"runtime"
 
 	"github.com/gin-gonic/gin"
@@ -8,15 +9,17 @@ import (
 	apiV1 "github.com/hitokoto-osc/Moe/controllers/v1"
 	"github.com/hitokoto-osc/Moe/middlewares"
 	"github.com/hitokoto-osc/Moe/util/web"
-	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
 var osInfo = runtime.GOOS + " " + runtime.GOARCH
 
 func setupRoutes(r *gin.Engine) {
+	logger := logging.GetLogger()
+	defer logger.Sync()
+
 	if !viper.IsSet("server.secret") {
-		log.Fatal("[web] can't start server because of the secret is not set.")
+		logger.Fatal("[web] can't start server because of the secret is not set.")
 	}
 	r.Use(middlewares.Session(viper.GetString("server.secret")))
 

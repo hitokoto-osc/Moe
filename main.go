@@ -2,6 +2,8 @@ package main
 
 import (
 	"encoding/gob"
+	"github.com/hitokoto-osc/Moe/logging"
+	"go.uber.org/zap"
 	"runtime"
 
 	"github.com/gin-gonic/gin"
@@ -12,7 +14,6 @@ import (
 	"github.com/hitokoto-osc/Moe/routes"
 	"github.com/hitokoto-osc/Moe/task/status"
 	"github.com/hitokoto-osc/Moe/task/status/types"
-	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
 )
 
@@ -44,20 +45,21 @@ func init() {
 	// Parse Flag
 	flag.Parse()
 
+	if config.Debug {
+		logging.GetLogger().Info("Debug mode enabled.")
+	}
+
 	// Init Drivers
 	prestart.Do()
-
-	if config.Debug {
-		log.Info("[debug] 已启用调试模式")
-	}
 
 	// init Web Server
 	r = routes.InitWebServer()
 }
 
 func main() {
+	defer zap.L().Sync()
 	// start Server
 	if err := r.Run(":" + viper.GetString("server.port")); err != nil {
-		log.Fatal(err)
+		zap.L().Fatal("无法启动服务器", zap.Error(err))
 	}
 }

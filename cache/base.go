@@ -1,11 +1,12 @@
 package cache
 
 import (
+	"path/filepath"
+	"time"
+
 	"github.com/hitokoto-osc/Moe/util"
 	"github.com/patrickmn/go-cache"
 	log "github.com/sirupsen/logrus"
-	"path/filepath"
-	"time"
 )
 
 // Collection 存储缓存实例

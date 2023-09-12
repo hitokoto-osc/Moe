@@ -2,6 +2,8 @@ package main
 
 import (
 	"encoding/gob"
+	"runtime"
+
 	"github.com/gin-gonic/gin"
 	"github.com/hitokoto-osc/Moe/config"
 	"github.com/hitokoto-osc/Moe/database"
@@ -12,7 +14,6 @@ import (
 	"github.com/hitokoto-osc/Moe/task/status/types"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"runtime"
 )
 
 var (

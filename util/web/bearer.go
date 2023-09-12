@@ -2,9 +2,10 @@ package web
 
 import (
 	"encoding/base64"
+	"strings"
+
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
-	"strings"
 )
 
 // ParseBearerTokenFromHeader is a func that parse bearer token in authorization header

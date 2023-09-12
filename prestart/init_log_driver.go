@@ -1,9 +1,10 @@
 package prestart
 
 import (
+	"os"
+
 	"github.com/hitokoto-osc/Moe/config"
 	log "github.com/sirupsen/logrus"
-	"os"
 )
 
 // The Log driver is served by logrus

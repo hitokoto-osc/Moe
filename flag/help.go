@@ -2,9 +2,10 @@ package flag
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/hitokoto-osc/Moe/config"
 	pflag "github.com/spf13/pflag"
-	"os"
 )
 
 var h bool

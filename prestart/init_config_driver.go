@@ -2,11 +2,12 @@ package prestart
 
 import (
 	"bytes"
+	"io/ioutil"
+	"strings"
+
 	"github.com/hitokoto-osc/Moe/config"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"io/ioutil"
-	"strings"
 )
 
 // The Config Parse Driver is served by viper

@@ -1,10 +1,11 @@
 package status
 
 import (
+	"time"
+
 	"github.com/hitokoto-osc/Moe/cache"
 	"github.com/hitokoto-osc/Moe/database"
 	"github.com/hitokoto-osc/Moe/task/status/types"
-	"time"
 )
 
 var isTest = false

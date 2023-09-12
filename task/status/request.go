@@ -2,13 +2,14 @@ package status
 
 import (
 	"encoding/json"
+	"runtime/debug"
+	"sync"
+	"time"
+
 	"github.com/go-resty/resty/v2"
 	"github.com/hitokoto-osc/Moe/database"
 	"github.com/hitokoto-osc/Moe/task/status/types"
 	log "github.com/sirupsen/logrus"
-	"runtime/debug"
-	"sync"
-	"time"
 )
 
 func performRequest(records []database.APIRecord) (data []types.APIStatusResponseData, downList []DownServer) {

@@ -1,10 +1,11 @@
 package status
 
 import (
+	"testing"
+
 	"github.com/hitokoto-osc/Moe/database"
 	"github.com/hitokoto-osc/Moe/task/status/types"
 	"github.com/stretchr/testify/assert"
-	"testing"
 )
 
 func TestSDownServerExist(t *testing.T) {

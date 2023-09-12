@@ -1,10 +1,11 @@
 package task
 
 import (
-	"github.com/hitokoto-osc/Moe/task/status"
-	log "github.com/sirupsen/logrus"
 	"reflect"
 	"time"
+
+	"github.com/hitokoto-osc/Moe/task/status"
+	log "github.com/sirupsen/logrus"
 )
 
 // Run 定义了 task 的启动入口

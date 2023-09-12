@@ -1,11 +1,12 @@
 package status
 
 import (
+	"time"
+
 	"github.com/blang/semver/v4"
 	"github.com/hitokoto-osc/Moe/cache"
 	"github.com/hitokoto-osc/Moe/task/status/types"
 	log "github.com/sirupsen/logrus"
-	"time"
 )
 
 // LimitedHost 以编码模式定义了应统计的 API 主机地址

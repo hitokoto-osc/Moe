@@ -1,6 +1,8 @@
 package routes
 
 import (
+	"runtime"
+
 	"github.com/gin-gonic/gin"
 	"github.com/hitokoto-osc/Moe/config"
 	apiV1 "github.com/hitokoto-osc/Moe/controllers/v1"
@@ -8,7 +10,6 @@ import (
 	"github.com/hitokoto-osc/Moe/util/web"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
-	"runtime"
 )
 
 var osInfo = runtime.GOOS + " " + runtime.GOARCH

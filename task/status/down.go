@@ -1,6 +1,8 @@
 package status
 
 import (
+	"github.com/bytedance/sonic"
+	"github.com/cockroachdb/errors"
 	"time"
 
 	"github.com/hitokoto-osc/Moe/cache"
@@ -110,13 +112,22 @@ func (p *TDownServerList) Merge(newCollection SDownServer) []types.DownServerDat
 
 // Save 用于保存到缓存
 func (p *TDownServerList) Save() {
-	cache.Collection.Set("down", *p, 24*time.Hour)
+	buff, err := sonic.Marshal(*p)
+	if err != nil {
+		panic(errors.Wrap(err, "无法序列化缓存数据"))
+	}
+	cache.Collection.SetWithExpire("down", buff, 24*time.Hour)
 }
 
 // Recover 函数用于从缓存种恢复
 func (p *TDownServerList) Recover() {
-	if data, ok := cache.Collection.Get("down"); ok {
-		*p = data.(TDownServerList)
+	if buff, ok := cache.Collection.Get("down"); ok {
+		var data TDownServerList
+		err := sonic.Unmarshal(buff, &data)
+		if err != nil {
+			panic(errors.Wrap(err, "无法反序列化缓存数据"))
+		}
+		*p = data
 	}
 }
 

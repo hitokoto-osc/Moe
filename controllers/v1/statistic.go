@@ -9,7 +9,7 @@ import (
 
 // Statistic 是用于返回统计分析结果的控制器
 func Statistic(c *fiber.Ctx) error {
-	data, ok := cache.GetStatusData()
+	data, ok := cache.MustGetStatusData()
 	if !ok {
 		return web.Fail(c, map[string]interface{}{}, -1)
 	}

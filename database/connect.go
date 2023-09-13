@@ -26,7 +26,7 @@ func getConnectionURI() string {
 // InitDB 用于初始化数据库连接
 func InitDB() {
 	defer zap.L().Sync()
-	zap.L().Info("[database] 正在与数据库建立连接...")
+	zap.L().Debug("[database] 正在与数据库建立连接...")
 	var connectionURI = getConnectionURI
 	zap.L().Debug("[database] 数据库连接地址：" + connectionURI())
 	DB = sqlx.MustConnect("mysql", connectionURI())

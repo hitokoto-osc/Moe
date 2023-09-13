@@ -33,7 +33,7 @@ func RunTask() {
 	logger.Debug("[task.GenStatus] 合并请求记录...")
 	data := genStatusData(dataList, downServerList)
 	// log.Debug(data)
-	cache.StoreStatusData(*data)
+	cache.MustStoreStatusData(*data)
 }
 
 // DownServer 定义了请求中出现异常时应递交给合并器的类型

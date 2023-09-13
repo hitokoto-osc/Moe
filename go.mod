@@ -12,11 +12,11 @@ require (
 	github.com/gofiber/fiber/v2 v2.49.1
 	github.com/google/uuid v1.3.1
 	github.com/jmoiron/sqlx v1.3.5
-	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.16.0
 	github.com/stretchr/testify v1.8.4
 	go.uber.org/zap v1.25.0
+	zgo.at/zcache/v2 v2.1.0
 )
 
 require (

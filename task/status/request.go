@@ -1,7 +1,7 @@
 package status
 
 import (
-	"encoding/json"
+	"github.com/bytedance/sonic"
 	"github.com/cockroachdb/errors"
 	"github.com/hitokoto-osc/Moe/logging"
 	"go.uber.org/zap"
@@ -88,7 +88,7 @@ func requestServerAPI(url string) (data types.APIStatusResponseData, err error) 
 	}
 	// status is ok
 	var buffer map[string]interface{}
-	if e = json.Unmarshal(responseData.Body(), &buffer); e != nil {
+	if e = sonic.Unmarshal(responseData.Body(), &buffer); e != nil {
 		err = &GenStatusRequestFailureError{
 			Code:         responseData.StatusCode(),
 			Detail:       "JSON parsed failed, detail:" + e.Error(),
@@ -108,7 +108,7 @@ func requestServerAPI(url string) (data types.APIStatusResponseData, err error) 
 	}
 	// 正常数据
 	var authenticResponseData types.APIStatusResponseData
-	if e = json.Unmarshal(responseData.Body(), &authenticResponseData); e != nil {
+	if e = sonic.Unmarshal(responseData.Body(), &authenticResponseData); e != nil {
 		err = &GenStatusRequestFailureError{
 			Code:         responseData.StatusCode(),
 			Detail:       "authentic status JSON parsed failed, detail:" + e.Error(),

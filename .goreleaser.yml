@@ -17,9 +17,7 @@ builds:
       - windows
       - darwin
     goarch:
-      - '386'
       - amd64
-      - arm
       - arm64
     ldflags:
       - -X config.Version={{.Version}} -X config.BuildTag={{.FullCommit}} -X config.BuildTime={{ .Date }} -X config.CommitTime={{ .CommitDate }}

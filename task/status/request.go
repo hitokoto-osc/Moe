@@ -2,8 +2,8 @@ package status
 
 import (
 	"encoding/json"
+	"github.com/cockroachdb/errors"
 	"github.com/hitokoto-osc/Moe/logging"
-	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"runtime/debug"
 	"sync"

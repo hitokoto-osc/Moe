@@ -1,8 +1,8 @@
 package logging
 
 import (
+	"github.com/cockroachdb/errors"
 	"github.com/hitokoto-osc/Moe/config"
-	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )

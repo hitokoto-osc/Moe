@@ -1,7 +1,7 @@
 package status
 
 import (
-	"errors"
+	"github.com/cockroachdb/errors"
 	"github.com/hitokoto-osc/Moe/logging"
 	"go.uber.org/zap"
 	"time"

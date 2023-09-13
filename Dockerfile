@@ -1,13 +1,16 @@
 FROM alpine:3.18
 ENV TZ Asia/Shanghai
-RUN apk add alpine-conf tzdata && \
+RUN apk add alpine-conf tzdata dumb-init && \
     /sbin/setup-timezone -z Asia/Shanghai && \
     apk del alpine-conf
 
 ENV WORKDIR /app
 VOLUME $WORKDIR/data
-ADD config.example.toml /app/config
-ADD Moe /app
-ENTRYPOINT ["sh", "-c", "/Moe", "start"]
+ADD config.example.toml $WORKDIR/data/
+ADD Moe $WORKDIR
+WORKDIR $WORKDIR
+
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["./Moe"]
 
 

@@ -46,7 +46,10 @@ func initConfigDriver() {
 		viper.AddConfigPath("/etc/.Moe")
 		viper.AddConfigPath("$HOME/.Moe")
 		viper.AddConfigPath(".")
+		viper.AddConfigPath("./conf")
+		viper.AddConfigPath("./config")
 		viper.AddConfigPath("../conf")
+		viper.AddConfigPath("../config")
 		err := viper.ReadInConfig()
 		if err != nil {
 			logger.Fatal("[init] Fatal error while reading config file.", zap.Error(err))

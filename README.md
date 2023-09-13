@@ -21,8 +21,8 @@ Moe 离不开 **萌创团队** 以及 **一言项目组** 的支持，更离不�
 
 -   框架（重要的外部依赖）
     -   配置：viper
-    -   日志：logrus
-    -   Web：gin
+    -   日志：zap
+    -   Web：fiber
     -   flag 解析：pflag
     -   CI/CD：Github Action（后期前端内容的继承也将通过此服务）
 

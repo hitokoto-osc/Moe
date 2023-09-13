@@ -35,6 +35,7 @@ func InitWebServer() *fiber.App {
 	app.Use(middlewares.Logger())
 	app.Use(recoverMiddleware.New())
 	app.Use(middlewares.Cors())
+	app.Use(middlewares.Favicon())
 
 	// setup routes
 	setupRoutes(app)

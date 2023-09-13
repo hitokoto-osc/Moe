@@ -1,21 +1,20 @@
 package v1
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 	"github.com/hitokoto-osc/Moe/cache"
 	"github.com/hitokoto-osc/Moe/task/status/types"
 	"github.com/hitokoto-osc/Moe/util/web"
 )
 
 // Statistic 是用于返回统计分析结果的控制器
-func Statistic(c *gin.Context) {
+func Statistic(c *fiber.Ctx) error {
 	data, ok := cache.GetStatusData()
 	if !ok {
-		web.Fail(c, map[string]interface{}{}, -1)
-		return
+		return web.Fail(c, map[string]interface{}{}, -1)
 	}
 	if data.DownServer == nil {
 		data.DownServer = make([]types.DownServerData, 0)
 	}
-	web.Success(c, data)
+	return web.Success(c, data)
 }

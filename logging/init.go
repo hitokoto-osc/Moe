@@ -27,7 +27,7 @@ func buildConfig(isDebug bool) zap.Config {
 	}
 	// 统一配置
 	c.EncoderConfig.EncodeTime = zapcore.ISO8601TimeEncoder
-	c.EncoderConfig.EncodeCaller = zapcore.FullCallerEncoder
+	c.EncoderConfig.EncodeCaller = zapcore.ShortCallerEncoder
 	c.EncoderConfig.EncodeDuration = zapcore.MillisDurationEncoder
 
 	c.OutputPaths = []string{"stdout"}

@@ -1,41 +1,42 @@
 package routes
 
 import (
-	"github.com/gin-contrib/requestid"
-	"github.com/gin-gonic/gin"
-	"github.com/hitokoto-osc/Moe/config"
+	"github.com/bytedance/sonic"
+	"github.com/cockroachdb/errors"
+	"github.com/gofiber/fiber/v2"
+	recoverMiddleware "github.com/gofiber/fiber/v2/middleware/recover"
 	"github.com/hitokoto-osc/Moe/middlewares"
 	"github.com/hitokoto-osc/Moe/util/web"
 )
 
 // InitWebServer is a web server register, implemented by gin
-func InitWebServer() *gin.Engine {
-	if config.Debug {
-		gin.SetMode(gin.DebugMode)
-	} else {
-		gin.SetMode(gin.ReleaseMode)
-	}
-	r := gin.Default()
-
-	// load middleware
-	r.Use(requestid.New())
-	r.Use(middlewares.Cors())
-
-	// 404
-	r.NoRoute(func(context *gin.Context) {
-		context.Status(404)
-		web.Fail(context, nil, 404)
-		return
+func InitWebServer() *fiber.App {
+	app := fiber.New(fiber.Config{
+		Prefork:      false,
+		ServerHeader: "Moe",
+		AppName:      "@hitokoto/Moe",
+		ErrorHandler: func(ctx *fiber.Ctx, err error) error {
+			var e *fiber.Error
+			code := fiber.StatusInternalServerError
+			if errors.As(err, &e) {
+				code = e.Code
+			}
+			err = web.Fail(ctx, nil, code)
+			if err != nil {
+				return ctx.Status(fiber.StatusInternalServerError).SendString("Internal Server Error")
+			}
+			return nil
+		},
+		JSONEncoder: sonic.Marshal,
+		JSONDecoder: sonic.Unmarshal,
 	})
-
-	// 405
-	r.NoMethod(func(context *gin.Context) {
-		context.Status(405)
-		web.Fail(context, nil, 405)
-		return
-	})
+	// middleware
+	app.Use(middlewares.Tracing())
+	app.Use(middlewares.Logger())
+	app.Use(recoverMiddleware.New())
+	app.Use(middlewares.Cors())
 
 	// setup routes
-	setupRoutes(r)
-	return r
+	setupRoutes(app)
+	return app
 }

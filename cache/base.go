@@ -15,9 +15,10 @@ var Collection *cache.Cache
 // DataFilePath 是缓存记录文件地址
 var DataFilePath = filepath.Join(util.MustGetExecDir(), "cache.data")
 
-// init 用于初始化缓存驱动
-func init() {
+// LoadFromDisk 用于初始化缓存驱动
+func LoadFromDisk() {
 	defer zap.L().Sync()
+
 	Collection = cache.New(5*time.Minute, 10*time.Minute)
 	zap.L().Debug("[cache] 加载缓存文件...")
 	if err := Collection.LoadFile(DataFilePath); err != nil {

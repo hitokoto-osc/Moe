@@ -1,11 +1,8 @@
 package flag
 
-import (
-	pflag "github.com/spf13/pflag"
-)
+import "github.com/spf13/pflag"
 
-// Parse params
-func Parse() {
+func init() {
 	// Register Flag mapping
 	registerVersionFlag()
 	registerHelpFlag()
@@ -14,8 +11,10 @@ func Parse() {
 
 	// Parse Flag
 	pflag.Parse()
+}
 
-	// Handle Flag event
+// Do is a func will be called at init, registering the drivers of program
+func Do() {
 	handleVersionFlag()
 	handleHelpFlag()
 }

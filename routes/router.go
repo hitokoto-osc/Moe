@@ -1,31 +1,27 @@
 package routes
 
 import (
-	"github.com/hitokoto-osc/Moe/logging"
+	"github.com/gofiber/fiber/v2"
 	"runtime"
 
-	"github.com/gin-gonic/gin"
 	"github.com/hitokoto-osc/Moe/config"
 	apiV1 "github.com/hitokoto-osc/Moe/controllers/v1"
-	"github.com/hitokoto-osc/Moe/middlewares"
 	"github.com/hitokoto-osc/Moe/util/web"
-	"github.com/spf13/viper"
 )
 
 var osInfo = runtime.GOOS + " " + runtime.GOARCH
 
-func setupRoutes(r *gin.Engine) {
-	logger := logging.GetLogger()
-	defer logger.Sync()
+func setupRoutes(app *fiber.App) {
+	//logger := logging.GetLogger()
 
-	if !viper.IsSet("server.secret") {
-		logger.Fatal("[web] can't start server because of the secret is not set.")
-	}
-	r.Use(middlewares.Session(viper.GetString("server.secret")))
+	//if !viper.IsSet("server.secret") {
+	//	logger.Fatal("[web] can't start server because of the secret is not set.")
+	//}
+	//r.Use(middlewares.Session(viper.GetString("server.secret")))
 
 	// Setup router
-	r.GET("/", func(context *gin.Context) {
-		web.Success(context, map[string]interface{}{
+	app.Get("/", func(ctx *fiber.Ctx) error {
+		return web.Success(ctx, map[string]interface{}{
 			"build_info": map[string]interface{}{
 				"version":      config.Version,
 				"commit_hash":  config.BuildTag,
@@ -51,14 +47,14 @@ func setupRoutes(r *gin.Engine) {
 		})
 	})
 
-	v1 := r.Group("/v1")
+	v1 := app.Group("/v1")
 	{
 		// protected routes
 		// protected := r.Group("/api/v1", middlewares.AuthByMasterKey())
 		// {
 		// }
 		// common routes
-		v1.GET("/ping", apiV1.Ping)
-		v1.GET("/statistic", apiV1.Statistic)
+		v1.Get("/ping", apiV1.Ping)
+		v1.Get("/statistic", apiV1.Statistic)
 	}
 }

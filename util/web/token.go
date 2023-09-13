@@ -1,12 +1,12 @@
 package web
 
 import (
-	"github.com/gin-gonic/gin"
+	"github.com/gofiber/fiber/v2"
 	"github.com/spf13/viper"
 )
 
 // ValidTokenByContext is a func that verify the authorization by bearer token
-func ValidTokenByContext(ctx *gin.Context) (ok bool) {
+func ValidTokenByContext(ctx *fiber.Ctx) (ok bool) {
 	ok = false
 	masterKey := viper.GetString("server.auth.master_key")
 	token, isOk := ParseBearerTokenFromHeader(ctx)

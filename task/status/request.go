@@ -59,6 +59,7 @@ func performRequest(records []database.APIRecord) (data []types.APIStatusRespons
 func requestServerAPI(url string) (data types.APIStatusResponseData, err error) {
 	client := resty.New()
 	client.
+		SetLogger(logging.GetLogger().Sugar()).
 		// 设置重试逻辑
 		SetRetryCount(2). // 重试次数
 		SetRetryWaitTime(200 * time.Millisecond).

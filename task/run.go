@@ -2,7 +2,6 @@ package task
 
 import (
 	"github.com/hitokoto-osc/Moe/logging"
-	"reflect"
 	"time"
 
 	"github.com/hitokoto-osc/Moe/task/status"
@@ -17,7 +16,7 @@ func Run() {
 func taskLoop(t time.Duration, task func()) {
 	logger := logging.GetLogger()
 	for {
-		logger.Sugar().Debug("[taskLoop] 等待 %v 后执行 %s...", t, reflect.TypeOf(task).Name())
+		logger.Sugar().Debugf("[taskLoop] 等待 %v 后执行 task...", t)
 		logger.Sync()
 		time.Sleep(t)
 		task()

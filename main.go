@@ -1,19 +1,15 @@
 package main
 
 import (
-	"encoding/gob"
+	"github.com/gofiber/fiber/v2"
+	"github.com/hitokoto-osc/Moe/config"
+	"github.com/hitokoto-osc/Moe/flag"
 	"github.com/hitokoto-osc/Moe/logging"
+	"github.com/hitokoto-osc/Moe/prestart"
+	"github.com/hitokoto-osc/Moe/routes"
 	"go.uber.org/zap"
 	"runtime"
 
-	"github.com/gin-gonic/gin"
-	"github.com/hitokoto-osc/Moe/config"
-	"github.com/hitokoto-osc/Moe/database"
-	"github.com/hitokoto-osc/Moe/flag"
-	"github.com/hitokoto-osc/Moe/prestart"
-	"github.com/hitokoto-osc/Moe/routes"
-	"github.com/hitokoto-osc/Moe/task/status"
-	"github.com/hitokoto-osc/Moe/task/status/types"
 	"github.com/spf13/viper"
 )
 
@@ -28,14 +24,9 @@ var (
 	Version = "development"
 )
 
-var r *gin.Engine
+var app *fiber.App
 
 func init() {
-	// TODO: 用更好的方法修复缓存读写问题
-	gob.Register([]database.APIRecord{})
-	gob.Register(types.GeneratedData{})
-	gob.Register(status.TDownServerList{})
-
 	// Global set build information
 	config.BuildTag = BuildTag
 	config.BuildTime = BuildTime
@@ -43,23 +34,22 @@ func init() {
 	config.Version = Version
 
 	// Parse Flag
-	flag.Parse()
+	flag.Do()
 
 	if config.Debug {
 		logging.GetLogger().Info("Debug mode enabled.")
 	}
-
-	// Init Drivers
-	prestart.Do()
-
-	// init Web Server
-	r = routes.InitWebServer()
 }
 
 func main() {
 	defer zap.L().Sync()
+	// Init Drivers
+	prestart.Do()
+
+	// init Web Server
+	app = routes.InitWebServer()
 	// start Server
-	if err := r.Run(":" + viper.GetString("server.port")); err != nil {
+	if err := app.Listen(":" + viper.GetString("server.port")); err != nil {
 		zap.L().Fatal("无法启动服务器", zap.Error(err))
 	}
 }

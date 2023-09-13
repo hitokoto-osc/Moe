@@ -15,7 +15,7 @@ import (
 var Collection *zcache.Cache[string, []byte]
 
 // DataFilePath 是缓存记录文件地址
-var DataFilePath = filepath.Join(util.MustGetExecDir(), "cache.data")
+var DataFilePath = filepath.Join(util.MustGetExecDir(), "./data", "cache.data")
 
 // LoadFromDisk 用于初始化缓存驱动
 func LoadFromDisk() {

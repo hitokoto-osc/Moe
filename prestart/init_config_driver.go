@@ -48,6 +48,7 @@ func initConfigDriver() {
 		viper.AddConfigPath(".")
 		viper.AddConfigPath("./conf")
 		viper.AddConfigPath("./config")
+		viper.AddConfigPath("./data") // docker purpose
 		viper.AddConfigPath("../conf")
 		viper.AddConfigPath("../config")
 		err := viper.ReadInConfig()

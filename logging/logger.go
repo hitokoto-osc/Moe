@@ -16,8 +16,7 @@ func GetLogger() *zap.Logger {
 }
 
 func setZapGlobalLogger() {
-	undo := zap.ReplaceGlobals(logger)
-	defer undo()
+	zap.ReplaceGlobals(logger)
 }
 
 // NewContext add some fields to logger and set it to gin.Context

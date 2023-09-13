@@ -3,7 +3,7 @@ module github.com/hitokoto-osc/Moe
 go 1.21
 
 require (
-	github.com/blang/semver/v4 v4.0.0
+	github.com/Masterminds/semver/v3 v3.2.1
 	github.com/cockroachdb/errors v1.11.1
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-contrib/requestid v0.0.6

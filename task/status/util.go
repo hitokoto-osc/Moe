@@ -1,14 +1,14 @@
 package status
 
 import (
-	"github.com/blang/semver/v4"
+	"github.com/Masterminds/semver/v3"
 	"github.com/hitokoto-osc/Moe/task/status/types"
 )
 
 func compareAndUpdateGenDataVersion(data *types.GeneratedData, t *types.APIStatusResponseData, baseVersion *semver.Version) {
 	v := semver.MustParse(t.Version)
-	if v.GT(*baseVersion) {
-		*baseVersion = v
+	if v.GreaterThan(baseVersion) {
+		baseVersion = v
 		data.Version = t.Version
 	}
 }

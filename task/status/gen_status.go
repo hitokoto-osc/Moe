@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap"
 	"time"
 
-	"github.com/blang/semver/v4"
+	"github.com/Masterminds/semver/v3"
 	"github.com/hitokoto-osc/Moe/cache"
 	"github.com/hitokoto-osc/Moe/task/status/types"
 )
@@ -49,7 +49,7 @@ func genStatusData(inputData []types.APIStatusResponseData, downServerList []Dow
 	logger := logging.GetLogger()
 	defer logger.Sync()
 	// TODO: recover 捕获错误
-	var baseHitokotoAPIVersion semver.Version
+	var baseHitokotoAPIVersion *semver.Version
 	data = &types.GeneratedData{}
 	data.DownServer = []types.DownServerData{}
 	if downServerList != nil && len(downServerList) > 0 {
@@ -95,7 +95,7 @@ func genStatusData(inputData []types.APIStatusResponseData, downServerList []Dow
 		} else {
 			// 累加记录
 			data.Children = append(data.Children, v.ServerID)
-			compareAndUpdateGenDataVersion(data, &v, &baseHitokotoAPIVersion)
+			compareAndUpdateGenDataVersion(data, &v, baseHitokotoAPIVersion)
 			mergeStatusRecord(data, &v)
 			mergeRequestsRecord(data, &v)
 		}

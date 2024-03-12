@@ -4,7 +4,7 @@ go 1.21
 
 require (
 	github.com/Masterminds/semver/v3 v3.2.1
-	github.com/bytedance/sonic v1.10.1
+	github.com/bytedance/sonic v1.11.3
 	github.com/cockroachdb/errors v1.11.1
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/go-sql-driver/mysql v1.7.1

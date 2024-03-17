@@ -6,7 +6,7 @@ require (
 	github.com/Masterminds/semver/v3 v3.2.1
 	github.com/bytedance/sonic v1.10.1
 	github.com/cockroachdb/errors v1.11.1
-	github.com/go-resty/resty/v2 v2.7.0
+	github.com/go-resty/resty/v2 v2.12.0
 	github.com/go-sql-driver/mysql v1.7.1
 	github.com/gofiber/contrib/fiberzap/v2 v2.1.1
 	github.com/gofiber/fiber/v2 v2.49.2
@@ -21,7 +21,7 @@ require (
 
 require (
 	github.com/mattn/go-isatty v0.0.19 // indirect
-	golang.org/x/net v0.15.0 // indirect
+	golang.org/x/net v0.22.0 // indirect
 )
 
 require (
@@ -60,8 +60,8 @@ require (
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.5.0 // indirect
-	golang.org/x/sys v0.12.0 // indirect
-	golang.org/x/text v0.13.0 // indirect
+	golang.org/x/sys v0.18.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

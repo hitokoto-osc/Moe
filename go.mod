@@ -9,8 +9,8 @@ require (
 	github.com/go-resty/resty/v2 v2.7.0
 	github.com/go-sql-driver/mysql v1.7.1
 	github.com/gofiber/contrib/fiberzap/v2 v2.1.1
-	github.com/gofiber/fiber/v2 v2.49.2
-	github.com/google/uuid v1.3.1
+	github.com/gofiber/fiber/v2 v2.52.4
+	github.com/google/uuid v1.5.0
 	github.com/jmoiron/sqlx v1.3.5
 	github.com/spf13/pflag v1.0.5
 	github.com/spf13/viper v1.16.0
@@ -20,8 +20,8 @@ require (
 )
 
 require (
-	github.com/mattn/go-isatty v0.0.19 // indirect
-	golang.org/x/net v0.15.0 // indirect
+	github.com/mattn/go-isatty v0.0.20 // indirect
+	golang.org/x/net v0.17.0 // indirect
 )
 
 require (
@@ -35,7 +35,7 @@ require (
 	github.com/getsentry/sentry-go v0.24.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/klauspost/compress v1.16.7 // indirect
+	github.com/klauspost/compress v1.17.0 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
 	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
@@ -56,11 +56,11 @@ require (
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	github.com/valyala/fasthttp v1.50.0 // indirect
+	github.com/valyala/fasthttp v1.51.0 // indirect
 	github.com/valyala/tcplisten v1.0.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.5.0 // indirect
-	golang.org/x/sys v0.12.0 // indirect
+	golang.org/x/sys v0.15.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
